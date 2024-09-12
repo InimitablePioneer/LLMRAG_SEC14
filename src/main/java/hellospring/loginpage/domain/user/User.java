@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 @Data
 public class User {
+
     private Long id;
 
     @NotEmpty
