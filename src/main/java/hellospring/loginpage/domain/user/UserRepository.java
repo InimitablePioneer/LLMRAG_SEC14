@@ -15,7 +15,7 @@ public class UserRepository {
     private static long sequence = 0L;
     private static Map<Long, User> storage = new ConcurrentHashMap<>();
 
-    public User save(User user) {
+    public User saveUser(User user) {
         user.setId(++sequence);
         log.info("save: member={}", user);
         storage.put(user.getId(), user);
