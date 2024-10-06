@@ -22,15 +22,20 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    @GetMapping("/add")
+    @GetMapping("/signup")
     public String addUserForm(Model model) {
         model.addAttribute(new User());
         return "users/addUserForm";
     }
 
-    @PostMapping()
+    @PostMapping("/signup")
     public String save(@Valid @ModelAttribute User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "users/addUserForm";
+        }
 
+        userRepository.saveUser(user);
+        return "redirect:/";
 
     }
 

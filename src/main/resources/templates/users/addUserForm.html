@@ -76,7 +76,7 @@
     <div class="register-card col-md-6 col-lg-5">
         <h2 class="text-center mb-4">회원 가입</h2>
 
-        <form th:action="@{/users/add}" th:object="${user}" method="post">
+        <form action="" th:action th:object="${user}" method="post">
             <!-- 글로벌 오류 메시지 표시 -->
             <div th:if="${#fields.hasGlobalErrors()}">
                 <p class="field-error text-center" th:each="err : ${#fields.globalErrors()}"
