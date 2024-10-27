@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>로그인</title>
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- 구글 폰트 및 아이콘 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        /* 스타일 정의 */
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin-top: 80px;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .btn-custom {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-login {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-login:hover {
+            background-color: #0069d9;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+
+        .field-error {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="login-container">
+        <div class="login-title">로그인</div>
+        <form th:action="@{/login}" th:object="${loginForm}" method="post">
+            <!-- 글로벌 오류 메시지 -->
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p class="field-error text-center" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류
+                    메시지</p>
+            </div>
+            <!-- 로그인 ID -->
+            <div class="mb-3">
+                <label for="loginId" class="form-label">로그인 ID</label>
+                <input type="text" id="loginId" th:field="*{userId}" class="form-control" th:errorclass="is-invalid"
+                       placeholder="로그인 ID를 입력하세요" required>
+                <div th:if="${#fields.hasErrors('userId')}" class="field-error" th:errors="*{userId}">로그인 ID 오류</div>
+            </div>
+            <!-- 비밀번호 -->
+            <div class="mb-4">
+                <label for="password" class="form-label">비밀번호</label>
+                <input type="password" id="password" th:field="*{userPassword}" class="form-control"
+                       th:errorclass="is-invalid" placeholder="비밀번호를 입력하세요" required>
+                <div th:if="${#fields.hasErrors('userPassword')}" class="field-error" th:errors="*{userPassword}">비밀번호 오류</div>
+            </div>
+            <!-- 로그인 버튼 -->
+            <button type="submit" class="btn btn-custom btn-login">로그인</button>
+            <!-- 취소 버튼 -->
+            <button type="button" class="btn btn-custom btn-cancel" onclick="location.href='/'" th:onclick="|location.href='@{/}'|">취소</button>
+        </form>
+    </div>
+</div>
+<!-- Bootstrap JS (필요한 경우) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
