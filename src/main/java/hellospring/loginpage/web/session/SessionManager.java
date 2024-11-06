@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SessionManager {
@@ -15,6 +16,11 @@ public class SessionManager {
 
 
     public void createSession(Object value, HttpServletResponse response) {
+        String sessionId = UUID.randomUUID().toString();
+        sessionMap.put(sessionId, value);
+
+        Cookie mySessionCookie = new Cookie(SESSION_USER, sessionId);
+        response.addCookie(mySessionCookie);
 
     }
 
