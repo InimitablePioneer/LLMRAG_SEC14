@@ -37,7 +37,7 @@ public class LoginController {
         log.info("로그인이 감지되었습니다. loginUser: {}", loginUser);
 
         if (loginUser == null) {
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다");
+            bindingResult.reject("loginFail", "올바르지 않은 아이디와 비밀번호 입니다!");
             return "login/loginForm";
         }
 

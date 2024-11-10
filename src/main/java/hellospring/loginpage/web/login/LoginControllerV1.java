@@ -1,5 +1,8 @@
 package hellospring.loginpage.web.login;
 
+import hellospring.loginpage.domain.user.User;
+import hellospring.loginpage.web.session.MySessionManager;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginControllerV1 {
     private final LoginService loginService;
+    private final MySessionManager mySessionManager;
 
-    public LoginControllerV1(LoginService loginService) {
+    public LoginControllerV1(LoginService loginService, MySessionManager mySessionManager) {
         this.loginService = loginService;
+        this.mySessionManager = mySessionManager;
     }
 
     @GetMapping("/login")
@@ -30,8 +35,25 @@ public class LoginControllerV1 {
     public String loginV1(@Valid @ModelAttribute LoginForm form, BindingResult bindingResult
             , HttpServletResponse response) {
 
+        if (bindingResult.hasErrors()) {
+            return "login/loginForm";
+        }
+
+        User loginUser = loginService.login(form.getUserId(), form.getUserPassword());
+        log.info("로그인이 감지되었습니다. loginUser: {}", loginUser);
+
+        if (loginUser == null) {
+            bindingResult.reject("loginFail", "올바르지 않은 아이디와 비밀번호 입니다!");
+        }
+
+        mySessionManager.createSession(loginUser, response);
+
+        return "redirect:/";
     }
 
-
-
+    @PostMapping("/logout")
+    public String logoutUserV1(HttpServletRequest request) {
+        mySessionManager.expireSession(request);
+        return "redirect:/";
+    }
 }
