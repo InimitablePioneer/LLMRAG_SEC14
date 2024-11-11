@@ -34,10 +34,7 @@ public class HomePageController {
         }
 
         model.addAttribute("user", user);
-        return "loginHomePage";
-
-
-
+        return "login/loginHomePage";
 
     }
 }

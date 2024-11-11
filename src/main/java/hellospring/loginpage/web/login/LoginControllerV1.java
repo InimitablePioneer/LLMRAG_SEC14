@@ -6,13 +6,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
 @Controller
@@ -25,18 +22,18 @@ public class LoginControllerV1 {
         this.mySessionManager = mySessionManager;
     }
 
-    @GetMapping("/login")
-    public String loginForm(Model model) {
-        model.addAttribute("loginForm", new LoginForm());
-        return "login/loginForm";
+    //@GetMapping("/login")
+    public String loginUserForm(Model model) {
+        model.addAttribute("loginForm", new LoginUserForm());
+        return "login/loginUserForm";
     }
 
-    @PostMapping("/login")
-    public String loginV1(@Valid @ModelAttribute LoginForm form, BindingResult bindingResult
+   //@PostMapping("/login")
+    public String loginV1(@Valid @ModelAttribute LoginUserForm form, BindingResult bindingResult
             , HttpServletResponse response) {
 
         if (bindingResult.hasErrors()) {
-            return "login/loginForm";
+            return "login/loginUserForm";
         }
 
         User loginUser = loginService.login(form.getUserId(), form.getUserPassword());
@@ -51,7 +48,7 @@ public class LoginControllerV1 {
         return "redirect:/";
     }
 
-    @PostMapping("/logout")
+    //@PostMapping("/logout")
     public String logoutUserV1(HttpServletRequest request) {
         mySessionManager.expireSession(request);
         return "redirect:/";
