@@ -2,6 +2,7 @@ package hellospring.loginpage.web.login;
 
 import hellospring.loginpage.domain.user.User;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -42,12 +43,16 @@ public class LoginControllerV2 { //서블릿의 http세션 사용
             bindingResult.reject("loginFail", "올바르지 않은 아이디와 비밀번호 입니다!");
         }
 
+        HttpSession session = request.getSession();
+        session.setAttribute("loginUser", loginUser);
 
-
-
-
+        return "redirect:/";
     }
 
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
 
-
+    }
 }
