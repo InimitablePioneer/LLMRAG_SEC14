@@ -43,16 +43,21 @@ public class LoginControllerV2 { //서블릿의 http세션 사용
             bindingResult.reject("loginFail", "올바르지 않은 아이디와 비밀번호 입니다!");
         }
 
-        HttpSession session = request.getSession();
-        session.setAttribute("loginUser", loginUser);
+        HttpSession servletSession = request.getSession();
+        servletSession.setAttribute("loginUser", loginUser);
 
         return "redirect:/";
     }
 
     @PostMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
+    public String logout(HttpSession servletSession) { //스프링이 현재 존재하는 새션을 주입해준다!
+        servletSession.invalidate();
         return "redirect:/";
 
     }
+
 }
+
+
+
+
