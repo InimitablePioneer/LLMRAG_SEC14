@@ -17,11 +17,11 @@ public class MySessionManager {
     private Map<String, Object> sessionMap = new ConcurrentHashMap<>();
 
 
-    public void createSession(Object value, HttpServletResponse response) {
-        String sessionId = UUID.randomUUID().toString();
-        sessionMap.put(sessionId, value);
+    public void createMySession(Object value, HttpServletResponse response) {
+        String mySessionId = UUID.randomUUID().toString();
+        sessionMap.put(mySessionId, value);
 
-        Cookie mySessionCookie = new Cookie(SESSION_USER, sessionId);
+        Cookie mySessionCookie = new Cookie(SESSION_USER, mySessionId);
         response.addCookie(mySessionCookie);
 
     }
@@ -56,9 +56,6 @@ public class MySessionManager {
         }
         return null;
     }
-
-
-
 
 
 }
