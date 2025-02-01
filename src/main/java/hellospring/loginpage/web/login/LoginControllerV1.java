@@ -45,7 +45,7 @@ public class LoginControllerV1 {
             bindingResult.reject("loginFail", "올바르지 않은 아이디와 비밀번호 입니다!");
         }
 
-        mySessionManager.createSession(loginUser, response);
+        mySessionManager.createMySession(loginUser, response);
 
         return "redirect:/";
     }
