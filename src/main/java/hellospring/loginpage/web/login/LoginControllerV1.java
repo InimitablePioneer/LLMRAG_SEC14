@@ -31,7 +31,7 @@ public class LoginControllerV1 {
     }
 
     //@PostMapping("/login")
-    public String loginV1(@Valid @ModelAttribute LoginUserForm form, BindingResult bindingResult
+    public String loginWithMySession(@Valid @ModelAttribute LoginUserForm form, BindingResult bindingResult
             , HttpServletResponse response) {
 
         if (bindingResult.hasErrors()) {
@@ -43,6 +43,7 @@ public class LoginControllerV1 {
 
         if (loginUser == null) {
             bindingResult.reject("loginFail", "올바르지 않은 아이디와 비밀번호 입니다!");
+            return "login/loginUserForm";
         }
 
         mySessionManager.createMySession(loginUser, response);

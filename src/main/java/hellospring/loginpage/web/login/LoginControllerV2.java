@@ -30,7 +30,7 @@ public class LoginControllerV2 { //서블릿의 http세션 사용
     }
 
     @PostMapping("/login")
-    public String loginV2(@Valid @ModelAttribute LoginUserForm form,
+    public String loginWithSpringSession(@Valid @ModelAttribute LoginUserForm form,
                           BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             return "login/loginUserForm";
@@ -53,7 +53,6 @@ public class LoginControllerV2 { //서블릿의 http세션 사용
     public String logout(HttpSession servletSession) { //스프링이 현재 존재하는 새션을 주입해준다!
         servletSession.invalidate();
         return "redirect:/";
-
     }
 
 }
