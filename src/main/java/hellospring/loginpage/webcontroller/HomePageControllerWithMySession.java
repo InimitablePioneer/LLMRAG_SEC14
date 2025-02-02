@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class HomePageControllerV1 {
+public class HomePageControllerWithMySession {
 
     private final MySessionManager mySessionManager;
 
-    public HomePageControllerV1(MySessionManager mySessionManager) {
+    public HomePageControllerWithMySession(MySessionManager mySessionManager) {
         this.mySessionManager = mySessionManager;
     }
 

@@ -7,10 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomePageControllerV2 {
+public class HomePageControllerWithSpringSession {
 
     @GetMapping("/")
-    public String homePageLoginV2(HttpServletRequest request, Model model) {
+    public String homePageLoginWithSpringSession(HttpServletRequest request, Model model) {
         HttpSession servletSession = request.getSession(false);
         if (servletSession == null) {//!= 일때 에러 났음 에러 파악 밥먹구
             return "homepage";
