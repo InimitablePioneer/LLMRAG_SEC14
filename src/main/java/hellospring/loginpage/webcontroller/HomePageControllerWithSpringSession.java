@@ -12,7 +12,7 @@ public class HomePageControllerWithSpringSession {
     @GetMapping("/")
     public String homePageLoginWithSpringSession(HttpServletRequest request, Model model) {
         HttpSession servletSession = request.getSession(false);
-        if (servletSession == null) {//!= 일때 에러 났음 에러 파악 밥먹구
+        if (servletSession == null) {
             return "homepage";
         }
 
